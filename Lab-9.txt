@@ -59,6 +59,11 @@ insert into league values (1003,'Yellow','second',18,'Saudi Arabia');
 insert into league values (1004,'Bundesliga','first',16,'Germany');
 insert into league values (1005,'Premier League','first',18,'England');
 
+update league set level = 'second' where id = 1001;
+delete from league where id = '1003';
+
+
+
 select * from league;
 
 
@@ -73,6 +78,10 @@ insert into club values (2008,'Dortmund',1004,'Dortmund','Dortmubnd stadium','Ge
 insert into club values (2009,'Arsenal',1005,'London','Emarat stadium','England',28);
 insert into club values (2010,'Manchester city',1005,'Manchester','Ethaad stadium','England',28);
 
+update club set name = 'Atletico Madrid' where id = 2002;
+delete from club where id = '2005';
+
+
 select * from club;
 
 
@@ -81,6 +90,10 @@ insert into matches values (3002,2003,2004,1002,17,'2024-06-12 18:30:00');
 insert into matches values (3003,2005,2006,1003,9,'2024-07-20 20:00:00');
 insert into matches values (3004,2007,2008,1004,30,'2024-01-05 15:00:00');
 insert into matches values (3005,2009,2010,1005,15,'2024-10-09 16:30:00');
+
+update matches set round = 37 where id = 3002;
+delete from matches where id = '3003';
+
 
 select * from matches;
 
@@ -92,6 +105,10 @@ insert into ticket values (4003,3003,'B11','third',35);
 insert into ticket values (4004,3004,'S8','second',75);
 insert into ticket values (4005,3005,'A55','first',250);
 
+update ticket set seat = 'B15' where id = 4003;
+delete from ticket where id = '4003';
+
+
 select * from ticket;
 
 
@@ -101,13 +118,18 @@ insert into user values (5003,'Abdullah',44,'abdullah@gmail.com');
 insert into user values (5004,'Muhammed',18,'m@gmail.com');
 insert into user values (5005,'Khaled',31,'k@gmail.com');
 
+update user set name = 'Omar' where id = 5002;
+delete from user where id = 5005;
+
 select * from user;
 
 
-update club set name = 'Atletico Madrid' where id = 2002;
 
-update league set level = 'second' where id = 1001;
+alter table user add column balance int;
 
-delete from user where id = 5005;
+truncate  table  user;
 
-delete from ticket where id = '4003';
+
+
+
+
