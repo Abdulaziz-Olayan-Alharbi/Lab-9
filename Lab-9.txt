@@ -1,0 +1,113 @@
+create database matches_tickets;
+
+create table league(
+    id varchar(6) primary key ,
+    name varchar(25) unique not null ,
+    level varchar(7) not null check ( level = 'first' or level = 'second' or level = 'third' ),
+    clubs_number int not null ,
+    country varchar(20) not null
+);
+
+
+create table club(
+    id varchar(6) primary key ,
+    name varchar(25) not null ,
+    league_id varchar(6) not null ,
+    foreign key (league_id) references league(id),
+    city varchar(20) not null ,
+    stadium varchar(25) ,
+    country varchar(20) not null ,
+    players_number int not null
+);
+
+
+create table matches(
+    id varchar(6) primary key ,
+    club_home_id varchar(6) not null ,
+    foreign key (club_home_id) references club(id),
+    club_away_id varchar(6) not null ,
+    foreign key (club_away_id) references club(id),
+    league_id varchar(6) not null ,
+    foreign key (league_id) references league(id),
+    round int not null ,
+    start_date_time  datetime not null
+);
+
+
+create table ticket(
+    id varchar(6) primary key ,
+    match_id varchar(6) not null ,
+    foreign key (match_id) references matches(id),
+    seat varchar(6) unique ,
+    level varchar(6) check ( level = 'first' or level = 'second' or level = 'third' ),
+    price double
+);
+
+create table user(
+    id varchar(6) primary key ,
+    name varchar(25) not null ,
+    age int not null check ( age >16 ),
+    email varchar(40) not null unique
+);
+
+
+
+
+insert into league values (1001,'LaLiga','first',18,'spain');
+insert into league values (1002,'SPL','first',20,'saudi Arabia');
+insert into league values (1003,'Yellow','second',18,'Saudi Arabia');
+insert into league values (1004,'Bundesliga','first',16,'Germany');
+insert into league values (1005,'Premier League','first',18,'England');
+
+select * from league;
+
+
+insert into club values (2001,'Real Madrid',1001,'Madrid','Santiago bernabue','spain',25);
+insert into club values (2002,'Barcelona',1001,'Barcelona','Kamp no','spain',25);
+insert into club values (2003,'Al hilal',1002,'Riyadh','Kingdom Arena','Saudi Arabia',28);
+insert into club values (2004,'Al naser',1002,'Riyadh','Marsol park','Saudi Arabia',28);
+insert into club values (2005,'Al faisaly',1003,'AL majmaah','Al majmaah stadium','Saudi Arabia',30);
+insert into club values (2006,'Abha',1003,'Abha','Abha stadium ','Saudi Arabia',30);
+insert into club values (2007,'Bayern munich',1004,'munich','Alians Arena','Germany',25);
+insert into club values (2008,'Dortmund',1004,'Dortmund','Dortmubnd stadium','Germany',25);
+insert into club values (2009,'Arsenal',1005,'London','Emarat stadium','England',28);
+insert into club values (2010,'Manchester city',1005,'Manchester','Ethaad stadium','England',28);
+
+select * from club;
+
+
+insert into matches values (3001,2001,2002,1001,1,'2024-05-22 19:30:00');
+insert into matches values (3002,2003,2004,1002,17,'2024-06-12 18:30:00');
+insert into matches values (3003,2005,2006,1003,9,'2024-07-20 20:00:00');
+insert into matches values (3004,2007,2008,1004,30,'2024-01-05 15:00:00');
+insert into matches values (3005,2009,2010,1005,15,'2024-10-09 16:30:00');
+
+select * from matches;
+
+
+
+insert into ticket values (4001,3001,'S58','second',75);
+insert into ticket values (4002,3002,'M13','third',35);
+insert into ticket values (4003,3003,'B11','third',35);
+insert into ticket values (4004,3004,'S8','second',75);
+insert into ticket values (4005,3005,'A55','first',250);
+
+select * from ticket;
+
+
+insert into user values (5001,'Abdulaziz',24,'a@gmail.com');
+insert into user values (5002,'Ali',20,'ali@gmail.com');
+insert into user values (5003,'Abdullah',44,'abdullah@gmail.com');
+insert into user values (5004,'Muhammed',18,'m@gmail.com');
+insert into user values (5005,'Khaled',31,'k@gmail.com');
+
+select * from user;
+
+
+update club set name = 'Atletico Madrid' where id = 2002;
+
+update league set level = 'second' where id = 1001;
+
+delete from user where id = 5005;
+
+delete from ticket where id = '4003';
